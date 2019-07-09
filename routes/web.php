@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PrincipalController@getIndex');
+
+Route::get('/mgp', 'PrincipalController@getMinecraftGenerateProperties');
+
+Route::get('/profile', 'PrincipalController@getPerfilUsuario');
+
+Route::get('/addMinecraftServer', 'PrincipalController@getAddMinecraftServer');
+
+Route::post('/saveMinecraftServer', 'PrincipalController@saveMinecraftServer');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
