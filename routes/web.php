@@ -11,6 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'PrincipalController@getIndex');
+
+Route::get('/mgp', 'PrincipalController@getMinecraftGenerateProperties');
+
+
+Route::group(['middleware' => 'auth'], function (){
+
+    Route::get('/profile', 'PrincipalController@getPerfilUsuario');
+
+    Route::get('/addMinecraftServer', 'PrincipalController@getAddMinecraftServer');
+
+    Route::get('/serverList', 'DBController@getMyServerList');
+
+    Route::post('/saveMinecraftServer', 'DBController@postSaveMinecraftServer');
+
+    Route::post('/selectMinecraftServer', 'DBController@postSelectMinecraftServer');
+
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
