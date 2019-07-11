@@ -25,14 +25,9 @@ class PrincipalController extends Controller
         return Auth::user() ? view('profile') : view('index');
     }
 
-    function getAddMinecraftServer($id)
+    function getAddMinecraftServer()
     {
 
-        dd($id);
-
-        if (Auth::user() && !is_null($id)) {
-
-        }
         return view('profile.addMinecraftServer');
     }
 
