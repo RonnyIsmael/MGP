@@ -15,12 +15,25 @@ Route::get('/', 'PrincipalController@getIndex');
 
 Route::get('/mgp', 'PrincipalController@getMinecraftGenerateProperties');
 
-Route::get('/profile', 'PrincipalController@getPerfilUsuario');
 
-Route::get('/addMinecraftServer', 'PrincipalController@getAddMinecraftServer');
+Route::group(['middleware' => 'auth'], function () {
 
-Route::post('/saveMinecraftServer', 'PrincipalController@saveMinecraftServer');
+    Route::get('/profile', 'PrincipalController@getPerfilUsuario');
+
+    Route::get('/addMinecraftServer', 'PrincipalController@getAddMinecraftServer');
+
+    Route::get('/serverList', 'DBController@getMyServerList');
+
+    Route::post('/saveMinecraftServer', 'DBController@postSaveMinecraftServer');
+
+    Route::post('/selectMinecraftServer', 'DBController@postSelectMinecraftServer');
+
+    Route::post('/sendCommand', 'MinecraftRconController@PostSendCommand');
+});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+//GET /login -> get /home
+Route::redirect('/home', '/');
+//Route::get('/home', 'HomeController@index')->name('home');

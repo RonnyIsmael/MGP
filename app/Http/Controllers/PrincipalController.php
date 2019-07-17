@@ -27,11 +27,9 @@ class PrincipalController extends Controller
 
     function getAddMinecraftServer()
     {
+
         return view('profile.addMinecraftServer');
     }
 
-    function saveMinecraftServer()
-    {
 
-    }
 }

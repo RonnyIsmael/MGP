@@ -7,8 +7,11 @@
             <div class="col-12 text-center">
                 <form action="{{ url('/saveMinecraftServer') }}" method="post">
                     {{ csrf_field() }}
+                    <p>Nombre del servidor:
+                        <input type="text" name="mcServerName">
+                    </p>
                     <p>Dirección IP del servidor:
-                        <input type="number" name="direccionIP">
+                        <input type="text" name="direccionIP">
                     </p>
                     <p>Puerto RCON del servidor:
                         <input type="number" name="puertoRCON" value="25575">

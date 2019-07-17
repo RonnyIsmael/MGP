@@ -3,6 +3,9 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/vendor/Minecraft-RCON-master/rcon" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/Minecraft-RCON-master/samples" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/Minecraft-RCON-master/static" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/beyondcode/laravel-dump-server" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />

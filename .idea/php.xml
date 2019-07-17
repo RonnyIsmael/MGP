@@ -83,6 +83,9 @@
       <path value="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/Minecraft-RCON-master/samples" />
+      <path value="$PROJECT_DIR$/vendor/Minecraft-RCON-master/rcon" />
+      <path value="$PROJECT_DIR$/vendor/Minecraft-RCON-master/static" />
       <path value="$PROJECT_DIR$/vendor/thedudeguy/rcon" />
     </include_path>
   </component>
