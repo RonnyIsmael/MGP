@@ -10,8 +10,9 @@ class McServer extends Model
     protected $table = 'mc_servers';
     protected $primaryKey = 'id';
     public $timestamps = false;
+    public $incrementing = true;
 
-
+    public $id;
     public $owner_id;
     public $server_Name;
     public $ip_Address;

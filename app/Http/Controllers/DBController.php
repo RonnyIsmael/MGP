@@ -6,56 +6,102 @@ use App\McServer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use mysql_xdevapi\Exception;
 use Thedudeguy\Rcon;
+use \App\Exceptions\UsersExceptions;
 
-
+/**
+ * Class DBController
+ * Controlador encargado de las consultas insert/update/delete realizadas a la BD
+ * @package App\Http\Controllers
+ */
 class DBController extends Controller
 {
     //TODO
 
     /**
-     * Funcion para guardar en la base de datos table mc_servers los datos de un servidor de minecraft
+     * Funcion añade un McServer vinculandolo con el Usuario creador
+     * Comprueba que el Usuario no tenga ya un servidor con el mismo nombre en su lista de McServer´s
      * @param Request $request
      */
     function postSaveMinecraftServer(Request $request)
     {
         $user = Auth::user();
+        $owner_id = $user->getAuthIdentifier();
+        $server_Name = $request->input('mcServerName');
+        $ip_Address = $request->input('direccionIP');
+        $port_Rcon = $request->input('puertoRCON');
+        $password_Rcon = $request->input('passwordRCON');
 
-        $mcServer = new McServer();
-        $mcServer->owner_id = $user->getAuthIdentifier();
-        $mcServer->server_Name = $request->input('mcServerName');
-        $mcServer->ip_Address = $request->input('direccionIP');
-        $mcServer->port_Rcon = $request->input('puertoRCON');
-        $mcServer->password_Rcon = $request->input('passwordRCON');
-        $mcServer->save();
+
+        $rowsBD = DB::table('mc_servers')->where([
+            ['owner_id', '=', $owner_id],
+            ['server_Name', '=', $server_Name],
+        ])->get();
+
+        /*  if (isset($rowsBD)) {*/
+        /*        $mcServer = new McServer;
+                $mcServer->owner_id = 1;
+                $mcServer->server_Name = "sex";
+                $mcServer->ip_Address = "22.22.22.22";
+                $mcServer->port_Rcon = "222";
+                $mcServer->password_Rcon = "222";
+                $mcServer->save();*/
+        /*    }*/
+
+        if (!isset($rowsBD[0])) {
+            DB::table('mc_servers')->insert(
+                ['owner_id' => $owner_id, 'server_Name' => $server_Name, 'ip_Address' => $ip_Address,
+                    'port_Rcon' => $port_Rcon, 'password_Rcon' => $password_Rcon]
+            );
+        } else {
+            throw new UsersExceptions ('Something Went Wrong.');
+        }
+
 
         return view('profile');
 
     }
 
+    /**
+     * Comprobamos que tenga servidores en su lista y mostramos la lista de servidores o un mensaje en texto plano
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     function getMyServerList()
     {
         $user = Auth::user();
 
-        $serverNameList = DB::table('mc_servers')->select('server_Name', 'id')->where('owner_id', '=', $user->getAuthIdentifier())->get();
+        $rowsBD = DB::table('mc_servers')->where([
+            ['owner_id', '=', $user->getAuthIdentifier()],
+        ])->get();
+
+        if (isset($rowsBD[0])) {
+            $serverNameList = DB::table('mc_servers')->select('server_Name', 'id')->where('owner_id', '=', $user->getAuthIdentifier())->get();
+        } else {
+            $serverNameList = "Aun no has añadido ningun servidor a tu lista";
+        }
+
 
         return view('profile.listMinecraftServer', array('serverList' => $serverNameList));
 
     }
 
-    function postSelectMinecraftServer(Request $request)
+    /**
+     * Obtenemos el id del usuario y el nombre del servidor al que quiere acceder
+     * Comprobamos que el servidor pertenece a ese usuario y procedemos a realizar la conexion
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    function getSelectMinecraftServer(Request $request, $serverName)
     {
         $user = Auth::user();
-        $mcServerId = $request->input('id');
 
         //COMPROBAMOS QUE EL USUARIO QUE QUIERE ACCEDER AL SERVIDOR ES EL DUEÑO DEL MISMO
         $rowsBD = DB::table('mc_servers')->where([
             ['owner_id', '=', $user->getAuthIdentifier()],
-            ['id', '=', $mcServerId],
+            ['server_Name', '=', $serverName],
         ])->get();
 
-        if (isset($rowsBD)) {
+        if (isset($rowsBD[0])) {
             $queryResult = $rowsBD[0];
             if ($queryResult->owner_id == $user->getAuthIdentifier()) {
                 $host = $queryResult->ip_Address;
@@ -63,9 +109,12 @@ class DBController extends Controller
                 $password = $queryResult->password_Rcon;
                 $rcon = new Rcon($host, $port, $password);
             }
+        } else {
+            $error = "Nice try ;)";
+            dd($error);
         }
 
-        return ($rcon->connect()) ? view('profile.manageMinecraftServer', array('mcServerId' => $mcServerId)) : view('index');
+        return ($rcon->connect()) ? view('profile.manageMinecraftServer', array('serverName' => $serverName)) : view('index');
 
 
     }

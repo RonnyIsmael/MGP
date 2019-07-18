@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -24,12 +25,22 @@ class ExampleTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
 
-        $response = $this->actingAs($user)
-            ->withSession(['foo' => 'bar'])
-            ->get('/serverList');
-        $response->assertOk();
+        //COMPROBAMOS QUE EL USUARIO QUE QUIERE ACCEDER AL SERVIDOR ES EL DUEÑO DEL MISMO
+        $rowsBD = DB::table('users')->where([
+            ['email', '=', $user->email],
+        ])->get();
 
-        printf("test_create_user(): Logueado exitosamente\n\n");
+
+        if (isset($rowsBD[0])) {
+            $this->assertTrue(true);
+            printf("test_create_user(): Logueado exitosamente\n\n");
+
+        } else {
+            $this->assertTrue(false);
+            printf("test_create_user(): No se ha logueado exitosamente\n\n");
+        }
+
+
 
     }
 

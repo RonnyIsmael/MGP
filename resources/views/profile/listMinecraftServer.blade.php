@@ -1,20 +1,28 @@
 @extends('layouts.master')
 <link href="{{ asset('/css/profile.css') }}" rel="stylesheet">
-
+@csrf
 @section('content')
     <div class="container mt-4">
         <div class="row">
             <div class="col-4">
-                @foreach($serverList as $key)
-                    <form action="/selectMinecraftServer" method="post">
-                        <input type="number" name="id" value="{{ $key->id }}" style="display: none">
-                        @csrf
-                        <span class="border border-primary menuOpciones">
-                            <input type="submit" value="{{ $key->server_Name }}">
-                </span>
+                @if(isset($serverList[0]))
+                    @foreach($serverList as $key)
 
-                    </form>
-                @endforeach
+                        {{--                        <form action="/" method="get">
+                                                    <input type="number" name="id" value="{{ $key->server_Name }}" style="display: none">--}}
+
+                        <a href="/selectMinecraftServer/{{$key->server_Name}}">
+                            <span class="border border-primary menuOpciones">{{ $key->server_Name }}</span>
+                        </a>
+
+                        {{--  </form>--}}
+                    @endforeach
+                @else
+                    <div class="alert alert-warning" role="alert">
+                        <p>{{ $serverList }}</p>
+                        <p><a href="/addMinecraftServer">Comenzar a añadir!</a></p>
+                    </div>
+                @endif
             </div>
 
         </div>

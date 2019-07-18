@@ -1,9 +1,8 @@
 @extends('layouts.master')
 <link href="{{ asset('/css/manageMinecraftServer.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/manageMinecraftServer.js') }}" rel="script"></script>
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @section('content')
-
 
 
     <div class="row mt-5">
@@ -35,8 +34,8 @@
                 <div id="txtCommandResults"></div>
                 <input type="text" class="form-control" id="txtCommand"/>
                 <div class="input-group-btn">
-                    <input id="mcServerId" type="number" style="display: none" value="{{ $mcServerId }}">
-                    <button type="button" class="btn btn-primary" id="btnSend" onclick="sendCommandTEST()"><span
+                    <input id="mcServerName" type="text" style="display: none" value="{{ $serverName }}">
+                    <button type="button" class="btn btn-primary" id="btnSend"><span
                             class="glyphicon glyphicon-send"></span><span class="hidden-xs"> Send</span></button>
                     <button type="button" class="btn btn-warning" id="btnClearLog"><span
                             class="glyphicon glyphicon-erase"></span><span class="hidden-xs"> Clear</span></button>
@@ -48,39 +47,9 @@
     </div>
 
 
-
     <script src="{{ asset('/lib/Jquery/dist/jquery.min.js') }}" rel="script"></script>
     <script src="{{ asset('/lib/jqueryUI/jquery-ui-1.12.0.min.js') }}" rel="script"></script>
     <script src="{{ asset('/lib/PopperJs/popperjs.min.js') }}" rel="script"></script>
     <script src="{{ asset('/lib/bootstrap-4.3.1-dist/js/bootstrap.min.js') }}" rel="script"></script>
-
-    <script type="text/javascript">
-
-        var csrf = $('meta[name="_token"]').attr('content');
-
-        function sendCommandTEST() {
-            var cmd = document.getElementById('txtCommand').value; //OBTENEMOS EL COMANDO ESCRITO EN EL CAMPO INPUT
-            var serverId = document.getElementById('mcServerId').value; //OBTENEMOS EL servidor EN EL CAMPO INPUT
-
-            if (cmd !== null) {
-                postSend(cmd, serverId);
-            } else {
-                alert("Error");
-            }
-
-        }
-
-
-        function postSend(cmd, serverId) {
-            var response = $.post('/sendCommand',
-                {
-                    '_token': $('meta[name=csrf-token]').attr('content'),
-                    'cmd': cmd,
-                    'serverId': serverId,
-                });
-            console.log(response);
-
-
-        }
-    </script>
+    <script src="{{ asset('/js/manageMinecraftServer.js') }}" rel="script"></script>
 @stop

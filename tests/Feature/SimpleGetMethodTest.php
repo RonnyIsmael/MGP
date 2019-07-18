@@ -106,4 +106,19 @@ class SimpleGetMethodTest extends TestCase
     }
 
 
+    public function test_get_select_minecraft_server()
+    {
+        //Hacemos login
+        $this->post('/login', [
+            'email' => "root@lolshark.es",
+            'password' => "admin",
+        ]);
+
+        $response = $this->withHeaders([
+        ])->json('GET', '/selectMinecraftServer/TP-Server');
+        $response->assertOk();
+
+        printf("test_get_select_minecraft_server(): Accedemos correctamente al servidor \n");
+    }
+
 }

@@ -6,7 +6,7 @@
 
 #consoleRow {
     position: absolute;
-    top: 83px;
+    top: 120px;
     left: 15px;
     right: 15px;
     bottom: 15px;
@@ -14,7 +14,7 @@
 
 #alertMessage {
     position: absolute;
-    top: 15px;
+    top: 65px;
     left: 15px;
     right: 15px;
 }

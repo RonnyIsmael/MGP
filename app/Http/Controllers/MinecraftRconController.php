@@ -14,15 +14,15 @@ class MinecraftRconController extends Controller
     public function PostSendCommand(Request $request)
     {
         $user = Auth::user();
-        $mcServerId = $request->input('serverId');
+        $serverName = $request->input('serverName');
 
         //COMPROBAMOS QUE EL USUARIO QUE QUIERE ACCEDER AL SERVIDOR ES EL DUEÑO DEL MISMO
         $rowsBD = DB::table('mc_servers')->where([
             ['owner_id', '=', $user->getAuthIdentifier()],
-            ['id', '=', $mcServerId],
+            ['server_Name', '=', $serverName],
         ])->get();
 
-        if (isset($rowsBD)) {
+        if (isset($rowsBD[0])) {
             $queryResult = $rowsBD[0];
             if ($queryResult->owner_id == $user->getAuthIdentifier()) {
                 $host = $queryResult->ip_Address;
@@ -30,9 +30,13 @@ class MinecraftRconController extends Controller
                 $password = $queryResult->password_Rcon;
                 $rcon = new Rcon($host, $port, $password);
             }
+        } else {
+            $error = "Nice try ;)";
+            dd($error);
         }
 
         $rcon->connect();
+
         $rcon->sendCommand($request->input('cmd'));
 
     }

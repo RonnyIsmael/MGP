@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/saveMinecraftServer', 'DBController@postSaveMinecraftServer');
 
-    Route::post('/selectMinecraftServer', 'DBController@postSelectMinecraftServer');
+    Route::get('/selectMinecraftServer/{serverName}', 'DBController@getSelectMinecraftServer');
 
     Route::post('/sendCommand', 'MinecraftRconController@PostSendCommand');
 });
