@@ -8,16 +8,16 @@
                 <form action="{{ url('/saveMinecraftServer') }}" method="post">
                     {{ csrf_field() }}
                     <p>Nombre del servidor:
-                        <input type="text" name="mcServerName">
+                        <input type="text" name="mcServerName" required>
                     </p>
                     <p>Dirección IP del servidor:
-                        <input type="text" name="direccionIP">
+                        <input type="text" name="direccionIP" required>
                     </p>
                     <p>Puerto RCON del servidor:
-                        <input type="number" name="puertoRCON" value="25575">
+                        <input type="number" name="puertoRCON" value="25575" required>
                     </p>
                     <p>Contraseña RCON del servidor:
-                        <input type="password" name="passwordRCON">
+                        <input type="password" name="passwordRCON" required>
                     </p>
                     <p>
                         <button type="submit" class="btn btn-dark">Añadir</button>

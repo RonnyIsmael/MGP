@@ -50,7 +50,7 @@ return [
             'port' => env('DB_PORT', '3306'),
             'database' => env('MC_SHARK_DB_DATABASE', 'minecraft'),
             'username' => env('MC_SHARK_DB_USER', 'root'),
-            'password' => env('MC_SHARK_DB_PASSWORD', ''),
+            'password' => env('MC_SHARK_DB_PASSWORD', 'ronny9516'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
