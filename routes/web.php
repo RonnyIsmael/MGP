@@ -15,6 +15,10 @@ Route::get('/', 'PrincipalController@getIndex');
 
 Route::get('/mgp', 'PrincipalController@getMinecraftGenerateProperties');
 
+Route::get('/mgp/{version}', 'PrincipalController@getMinecraftGeneratePropertiesView');
+
+Route::get('/getVersions', 'PrincipalController@getVersions');
+
 
 Route::group(['middleware' => 'auth'], function () {
 

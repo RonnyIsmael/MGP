@@ -2,7 +2,7 @@ const urlGET = 'https://lolshark.es/';
 
 var peticionHttp = new XMLHttpRequest();
 peticionHttp.addEventListener('load', cargarSelectorVersiones);
-peticionHttp.open('GET', urlGET + 'versions.txt');
+peticionHttp.open('GET', '/getVersions');
 peticionHttp.send();
 
 function cargarSelectorVersiones() {
@@ -24,7 +24,7 @@ Comenzar.addEventListener('click',
         var selectorVersiones = document.getElementById('selectorVersiones');
         var enlace = document.getElementById('Enlace');
         var selectedOption = selectorVersiones.options[selectorVersiones.selectedIndex].innerHTML;
-        enlace.href = urlGET + 'vistas/' + selectedOption + '.php';
+        enlace.href = '/mgp/' + selectedOption;
     });
 
 
