@@ -63,11 +63,6 @@
         </div>
     </div>
 
-
-
-    <script src="{{ asset('/lib/Jquery/dist/jquery.min.js') }}" rel="script"></script>
-    <script src="{{ asset('/lib/PopperJs/popperjs.min.js') }}" rel="script"></script>
-    <script src="{{ asset('/lib/bootstrap-4.3.1-dist/js/bootstrap.min.js') }}" rel="script"></script>
     <script src="{{ asset('/js/General.js') }}" rel="script"></script>
     <script type="text/javascript">
         const versionName = self.location.href.match(/\/([^/]+)$/)[1];
