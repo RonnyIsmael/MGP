@@ -76,7 +76,12 @@
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Salir') }}
                                 </a>
+<<<<<<< HEAD
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+=======
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+>>>>>>> 6df40d11a2286b9dac9abea728672c17b5281d59
                                     @csrf
                                 </form>
                             </div>
@@ -87,4 +92,3 @@
         </div>
     </nav>
 </div>
-

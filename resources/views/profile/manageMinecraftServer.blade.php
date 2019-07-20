@@ -3,8 +3,6 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @section('content')
-
-
     <div class="row mt-5">
         <div class="alert alert-info" id="alertMessage">
             Minecraft RCON
@@ -46,10 +44,5 @@
 
     </div>
 
-
-    <script src="{{ asset('/lib/Jquery/dist/jquery.min.js') }}" rel="script"></script>
-    <script src="{{ asset('/lib/jqueryUI/jquery-ui-1.12.0.min.js') }}" rel="script"></script>
-    <script src="{{ asset('/lib/PopperJs/popperjs.min.js') }}" rel="script"></script>
-    <script src="{{ asset('/lib/bootstrap-4.3.1-dist/js/bootstrap.min.js') }}" rel="script"></script>
     <script src="{{ asset('/js/manageMinecraftServer.js') }}" rel="script"></script>
 @stop

@@ -7,8 +7,7 @@
             <a href="/profile">Mi perfil</a>
         </div>
         <a href="{{ route('logout') }}"
-           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+           onclick="event.preventDefault();document.getElementById('logout-form').submit();">
             {{ __('Logout') }}
         </a>
 
@@ -17,11 +16,12 @@
         </form>
     </div>
     <div class="col-12">
-        <p class="text-center">
-
-        </p>
+        <p class="text-center"></p>
     </div>
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 6df40d11a2286b9dac9abea728672c17b5281d59
 @stop
