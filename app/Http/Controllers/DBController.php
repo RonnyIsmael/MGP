@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Thedudeguy\Rcon;
 use \App\Exceptions\UsersExceptions;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class DBController
@@ -38,25 +39,14 @@ class DBController extends Controller
             ['server_Name', '=', $server_Name],
         ])->get();
 
-        /*  if (isset($rowsBD)) {*/
-        /*        $mcServer = new McServer;
-                $mcServer->owner_id = 1;
-                $mcServer->server_Name = "sex";
-                $mcServer->ip_Address = "22.22.22.22";
-                $mcServer->port_Rcon = "222";
-                $mcServer->password_Rcon = "222";
-                $mcServer->save();*/
-        /*    }*/
-
         if (!isset($rowsBD[0])) {
             DB::table('mc_servers')->insert(
                 ['owner_id' => $owner_id, 'server_Name' => $server_Name, 'ip_Address' => $ip_Address,
                     'port_Rcon' => $port_Rcon, 'password_Rcon' => $password_Rcon]
             );
-        } else {
-            throw new UsersExceptions ('Something Went Wrong.');
         }
 
+        Log::info('El usuario: ' . $user->id . ' ha añadido un nuevo servidor a su lista');
 
         return view('profile');
 

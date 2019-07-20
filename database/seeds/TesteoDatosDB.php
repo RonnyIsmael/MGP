@@ -21,12 +21,6 @@ class TesteoDatosDB extends Seeder
             'password' => bcrypt('admin'),
         ]);
 
-        DB::table('users')->insert([
-            'id' => 2,
-            'name' => 'root2',
-            'email' => 'root2@lolshark.es',
-            'password' => bcrypt('admin'),
-        ]);
 
         DB::table('mc_servers')->insert([
             'id' => 1,

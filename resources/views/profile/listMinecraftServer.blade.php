@@ -5,17 +5,11 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-4">
-                @if(isset($serverList[0]))
+                @if(isset($serverList[0]) && is_array($serverList))
                     @foreach($serverList as $key)
-
-                        {{--                        <form action="/" method="get">
-                                                    <input type="number" name="id" value="{{ $key->server_Name }}" style="display: none">--}}
-
                         <a href="/selectMinecraftServer/{{$key->server_Name}}">
                             <span class="border border-primary menuOpciones">{{ $key->server_Name }}</span>
                         </a>
-
-                        {{--  </form>--}}
                     @endforeach
                 @else
                     <div class="alert alert-warning" role="alert">
@@ -24,9 +18,7 @@
                     </div>
                 @endif
             </div>
-
         </div>
-    </div>
     </div>
 
 
